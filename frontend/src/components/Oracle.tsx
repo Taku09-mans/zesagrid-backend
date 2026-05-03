@@ -134,7 +134,7 @@ export default function Oracle() {
                   {prediction.prediction}
                 </h3>
                 <p className="text-xs text-zinc-500 mt-2 font-mono italic">
-                  Environmental risk assessment for Suburb_ID: {prediction.suburb_id}
+                  Environmental risk assessment for {suburbs.find(s => s.id === parseInt(selectedSuburb))?.name || 'Selected Sector'}
                 </p>
               </div>
             </div>
