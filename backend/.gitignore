@@ -1,0 +1,12 @@
+# Ignore the secret keys
+.env
+
+# Ignore Python library folders
+venv/
+.venv/
+__pycache__/
+*.pyc
+
+# Ignore OS files
+.DS_Store
+Thumbs.db
