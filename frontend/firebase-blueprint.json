@@ -1,0 +1,41 @@
+{
+  "entities": {
+    "userProfile": {
+      "title": "User Profile",
+      "description": "User specific settings and preferences.",
+      "type": "object",
+      "properties": {
+        "userId": { "type": "string" },
+        "email": { "type": "string" },
+        "displayName": { "type": "string" },
+        "preferredSuburb": { "type": "string" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["userId", "email"]
+    },
+    "predictionHistory": {
+      "title": "Prediction History",
+      "description": "Log of predictions made by the user.",
+      "type": "object",
+      "properties": {
+        "userId": { "type": "string" },
+        "suburb": { "type": "string" },
+        "time": { "type": "string" },
+        "prediction": { "type": "string" },
+        "confidence": { "type": "number" },
+        "timestamp": { "type": "string", "format": "date-time" }
+      },
+      "required": ["userId", "suburb", "time", "prediction"]
+    }
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": "userProfile",
+      "description": "User profile documents."
+    },
+    "/predictions/{predictionId}": {
+      "schema": "predictionHistory",
+      "description": "Global log of predictions."
+    }
+  }
+}
