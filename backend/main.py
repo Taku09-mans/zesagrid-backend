@@ -70,8 +70,12 @@ def get_suburbs():
 @app.get("/api/leaderboard")
 def get_leaderboard():
     conn = get_db_connection()
+    # ---> FIX APPLIED HERE: Added AVG calculation to the SQL Query <---
     query = """
-        SELECT s.suburb_name as suburb, SUM(p.duration_hours) as total_hours
+        SELECT 
+            s.suburb_name as suburb, 
+            SUM(p.duration_hours) as total_hours,
+            AVG(p.duration_hours) as avg_duration
         FROM Power_Outages p
         JOIN Suburbs s ON p.suburb_id = s.suburb_id
         GROUP BY s.suburb_name
@@ -79,6 +83,11 @@ def get_leaderboard():
     """
     df = pd.read_sql_query(query, conn)
     conn.close()
+
+    # Ensure the average is clean (e.g., 4.2 instead of 4.288339)
+    if not df.empty:
+        df['avg_duration'] = df['avg_duration'].round(1)
+
     return df.to_dict(orient='records')
 
 
